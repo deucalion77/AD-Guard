@@ -1,0 +1,205 @@
+{
+  "generated_utc": "2025-12-19T21:29:22.430832Z",
+  "posture_score": 17,
+  "finding_count": 13,
+  "findings": [
+    {
+      "id": "AD-ACL-001",
+      "title": "Dangerous delegated rights detected on high-value AD container",
+      "severity": "CRITICAL",
+      "evidence": {
+        "object": "domain_controllers_ou",
+        "principal": "CORP\\john.smith",
+        "principal_sam": "john.smith",
+        "rights": [
+          "CreateChild",
+          "DeleteChild",
+          "ExtendedRight",
+          "GenericAll",
+          "Self",
+          "WriteDacl",
+          "WriteOwner",
+          "WriteProperty"
+        ],
+        "activeDirectoryRights_raw": 983551,
+        "accessControlType_raw": 0,
+        "source_file": "domain_controllers_ou.json"
+      },
+      "impact": "Explicit powerful ACLs on Tier-0 containers can enable privilege escalation or domain takeover depending on the principal and target objects.",
+      "remediation": [
+        "Remove unnecessary delegated rights (GenericAll/GenericWrite/WriteDACL/WriteOwner/Extended rights).",
+        "Restrict Tier-0 ACLs (Domain Controllers OU, privileged groups) to tightly controlled admin groups.",
+        "Re-run scan to confirm exposure is removed."
+      ]
+    },
+    {
+      "id": "AD-KERB-001",
+      "title": "Kerberoastable service account (SPN present)",
+      "severity": "HIGH",
+      "evidence": {
+        "user": "svc_file",
+        "spn_count": 2,
+        "pwd_last_set_utc": "2025-12-06T14:24:13.898850Z",
+        "pwd_age_days": 13
+      },
+      "impact": "Service tickets for SPN accounts can be requested and cracked offline if passwords are weak or old.",
+      "remediation": [
+        "Prefer gMSA for services where possible.",
+        "Rotate service account passwords regularly and enforce strong random values.",
+        "Remove unused SPNs from user accounts."
+      ]
+    },
+    {
+      "id": "AD-KERB-001",
+      "title": "Kerberoastable service account (SPN present)",
+      "severity": "HIGH",
+      "evidence": {
+        "user": "svc_app",
+        "spn_count": 2,
+        "pwd_last_set_utc": "2025-12-06T14:24:14.023894Z",
+        "pwd_age_days": 13
+      },
+      "impact": "Service tickets for SPN accounts can be requested and cracked offline if passwords are weak or old.",
+      "remediation": [
+        "Prefer gMSA for services where possible.",
+        "Rotate service account passwords regularly and enforce strong random values.",
+        "Remove unused SPNs from user accounts."
+      ]
+    },
+    {
+      "id": "AD-KERB-001",
+      "title": "Kerberoastable service account (SPN present)",
+      "severity": "HIGH",
+      "evidence": {
+        "user": "svc_backup",
+        "spn_count": 1,
+        "pwd_last_set_utc": "2025-12-06T14:24:14.132960Z",
+        "pwd_age_days": 13
+      },
+      "impact": "Service tickets for SPN accounts can be requested and cracked offline if passwords are weak or old.",
+      "remediation": [
+        "Prefer gMSA for services where possible.",
+        "Rotate service account passwords regularly and enforce strong random values.",
+        "Remove unused SPNs from user accounts."
+      ]
+    },
+    {
+      "id": "GPO-LDAP-001",
+      "title": "LDAP server signing/integrity not configured in any exported GPO",
+      "severity": "HIGH",
+      "evidence": {
+        "gpo_reports_scanned": 5,
+        "observed": []
+      },
+      "impact": "Without enforcing LDAP signing on Domain Controllers, LDAP traffic may be vulnerable depending on client behavior.",
+      "remediation": [
+        "Configure LDAPServerIntegrity via GPO (prefer 2 = Require signing).",
+        "Pilot and monitor unsigned binds before enforcing broadly."
+      ]
+    },
+    {
+      "id": "GPO-SMB-001",
+      "title": "SMB signing requirement not configured in any exported GPO",
+      "severity": "HIGH",
+      "evidence": {
+        "gpo_reports_scanned": 5,
+        "observed": []
+      },
+      "impact": "If SMB signing is not required, some environments may be exposed to relay attacks depending on other controls.",
+      "remediation": [
+        "Require SMB signing on servers/clients where feasible."
+      ]
+    },
+    {
+      "id": "AD-AUTH-002",
+      "title": "Account has 'Password never expires'",
+      "severity": "MEDIUM",
+      "evidence": {
+        "user": "Administrator"
+      },
+      "impact": "Long-lived credentials increase exposure to offline cracking and credential reuse attacks.",
+      "remediation": [
+        "Disable 'Password never expires' for user/service accounts where possible.",
+        "Use gMSA for services to get automatic password rotation."
+      ]
+    },
+    {
+      "id": "AD-AUTH-002",
+      "title": "Account has 'Password never expires'",
+      "severity": "MEDIUM",
+      "evidence": {
+        "user": "Guest"
+      },
+      "impact": "Long-lived credentials increase exposure to offline cracking and credential reuse attacks.",
+      "remediation": [
+        "Disable 'Password never expires' for user/service accounts where possible.",
+        "Use gMSA for services to get automatic password rotation."
+      ]
+    },
+    {
+      "id": "AD-AUTH-002",
+      "title": "Account has 'Password never expires'",
+      "severity": "MEDIUM",
+      "evidence": {
+        "user": "john.smith"
+      },
+      "impact": "Long-lived credentials increase exposure to offline cracking and credential reuse attacks.",
+      "remediation": [
+        "Disable 'Password never expires' for user/service accounts where possible.",
+        "Use gMSA for services to get automatic password rotation."
+      ]
+    },
+    {
+      "id": "AD-POSTURE-003",
+      "title": "MachineAccountQuota is greater than 0",
+      "severity": "MEDIUM",
+      "evidence": {
+        "ms-DS-MachineAccountQuota": 10
+      },
+      "impact": "Allows authenticated users to join machines to the domain, which can enable certain abuse paths in misconfigured environments.",
+      "remediation": [
+        "Set MachineAccountQuota to 0 unless you explicitly need self-service joins.",
+        "If self-service joins are needed, restrict who can join machines using delegated OU permissions."
+      ]
+    },
+    {
+      "id": "GPO-LDAP-003",
+      "title": "LDAP client signing/integrity not configured in any exported GPO",
+      "severity": "MEDIUM",
+      "evidence": {
+        "gpo_reports_scanned": 5,
+        "observed": []
+      },
+      "impact": "Clients may perform unsigned LDAP binds depending on defaults and application behavior.",
+      "remediation": [
+        "Configure LDAPClientIntegrity via GPO where appropriate."
+      ]
+    },
+    {
+      "id": "GPO-LDAP-002",
+      "title": "LDAP channel binding not configured in any exported GPO",
+      "severity": "MEDIUM",
+      "evidence": {
+        "gpo_reports_scanned": 5,
+        "observed": []
+      },
+      "impact": "Channel binding can reduce certain relay-style risks but may affect legacy compatibility.",
+      "remediation": [
+        "Evaluate enforcing LdapEnforceChannelBinding via staged rollout."
+      ]
+    },
+    {
+      "id": "GPO-NTLM-001",
+      "title": "LM/NTLM compatibility level not configured in any exported GPO",
+      "severity": "MEDIUM",
+      "evidence": {
+        "gpo_reports_scanned": 5,
+        "observed": []
+      },
+      "impact": "Without setting LmCompatibilityLevel, systems may operate with weaker defaults depending on OS version/local policy.",
+      "remediation": [
+        "Set LmCompatibilityLevel to a secure value (commonly 5 for NTLMv2-only) where compatible."
+      ]
+    }
+  ]
+}
