@@ -122,7 +122,9 @@ Invoke-WebRequest https://cdn.jsdelivr.net/npm/chart.js `
 </ul>
 
 <hr>
-
+  
+<h2>You can view a example reoprt at https://deucalion77.github.io/AD-Guard/ 
+<hr>
 <h2>⚠️ Disclaimer</h2>
 
 <p>
