@@ -1,0 +1,453 @@
+
+    <html>
+    <head>
+    <meta charset="utf-8">
+    <title>ADGuard Report</title>
+    <style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #fafafa;
+      margin: 30px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      font-size: 18px;
+      margin-top: 0;
+    }
+
+    .finding {
+      background: #ffffff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    }
+
+    .sev-CRITICAL { border-left: 8px solid #c62828; }
+    .sev-HIGH     { border-left: 8px solid #ef6c00; }
+    .sev-MEDIUM   { border-left: 8px solid #f9a825; }
+    .sev-LOW      { border-left: 8px solid #0277bd; }
+    .sev-INFO     { border-left: 8px solid #546e7a; }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .badge.CRITICAL { background: #c62828; }
+    .badge.HIGH     { background: #ef6c00; }
+    .badge.MEDIUM   { background: #f9a825; color: #000; }
+    .badge.LOW      { background: #0277bd; }
+    .badge.INFO     { background: #546e7a; }
+
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 13px;
+      overflow-x: auto;
+    }
+    
+      details summary {
+      cursor: pointer;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    details[open] summary {
+      margin-bottom: 12px;
+    }
+    
+    .chart-container {
+      width: 600px;
+      height: 400px;
+      float: right;
+      margin-left: 30px;
+      margin-bottom: 20px;
+    }
+    
+    .chart-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    .chart-container {
+      width: 600px;
+      height: 400px;
+    }
+
+    .chart-legend {
+      margin-left: 30px;
+      font-size: 14px;
+    }
+
+    .chart-legend div {
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+
+    .legend-color {
+      width: 14px;
+      height: 14px;
+      margin-right: 8px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+    
+    </style>
+    </head>
+    <body>
+    
+<h1>ADGuard Report</h1>
+<p><b>Generated (UTC):</b> 2025-12-19T21:29:22.430832Z</p>
+<p><b>Posture score:</b> 17/100</p>
+<p><b>Total findings:</b> 13</p>
+
+    <h2>Findings Overview</h2>
+
+    <div class="chart-container">
+        <canvas id="severityChart" width="600" height="400"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+    const ctx = document.getElementById('severityChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ["CRITICAL", "HIGH", "MEDIUM"],
+        datasets: [{
+          label: 'Findings by Severity',
+          data: [1, 5, 7],
+          backgroundColor: [
+            '#c62828',
+            '#ef6c00',
+            '#f9a825',
+            '#0277bd',
+            '#546e7a'
+          ]
+        }]
+      },
+      options: {
+        responsive: false,
+        plugins: {
+          legend: { position: 'right' }
+        }
+      }
+    });
+    </script>
+    
+
+    <div class="finding sev-CRITICAL">
+      <details>
+        <summary>
+          <span class="badge CRITICAL">CRITICAL</span>
+          <strong>Dangerous delegated rights detected on high-value AD container</strong>
+        </summary>
+
+        <pre>{
+  "object": "domain_controllers_ou",
+  "principal": "CORP\\john.smith",
+  "principal_sam": "john.smith",
+  "rights": [
+    "CreateChild",
+    "DeleteChild",
+    "ExtendedRight",
+    "GenericAll",
+    "Self",
+    "WriteDacl",
+    "WriteOwner",
+    "WriteProperty"
+  ],
+  "activeDirectoryRights_raw": 983551,
+  "accessControlType_raw": 0,
+  "source_file": "domain_controllers_ou.json"
+}</pre>
+        <p><b>Impact:</b> Explicit powerful ACLs on Tier-0 containers can enable privilege escalation or domain takeover depending on the principal and target objects.</p>
+    
+<b>Remediation:</b><ul>
+<li>Remove unnecessary delegated rights (GenericAll/GenericWrite/WriteDACL/WriteOwner/Extended rights).</li>
+<li>Restrict Tier-0 ACLs (Domain Controllers OU, privileged groups) to tightly controlled admin groups.</li>
+<li>Re-run scan to confirm exposure is removed.</li>
+</ul>
+
+      </details>
+    </div>
+    
+
+    <div class="finding sev-HIGH">
+      <details>
+        <summary>
+          <span class="badge HIGH">HIGH</span>
+          <strong>Kerberoastable service account (SPN present)</strong>
+        </summary>
+
+        <pre>{
+  "user": "svc_file",
+  "spn_count": 2,
+  "pwd_last_set_utc": "2025-12-06T14:24:13.898850Z",
+  "pwd_age_days": 13
+}</pre>
+        <p><b>Impact:</b> Service tickets for SPN accounts can be requested and cracked offline if passwords are weak or old.</p>
+    
+<b>Remediation:</b><ul>
+<li>Prefer gMSA for services where possible.</li>
+<li>Rotate service account passwords regularly and enforce strong random values.</li>
+<li>Remove unused SPNs from user accounts.</li>
+</ul>
+
+      </details>
+    </div>
+    
+
+    <div class="finding sev-HIGH">
+      <details>
+        <summary>
+          <span class="badge HIGH">HIGH</span>
+          <strong>Kerberoastable service account (SPN present)</strong>
+        </summary>
+
+        <pre>{
+  "user": "svc_app",
+  "spn_count": 2,
+  "pwd_last_set_utc": "2025-12-06T14:24:14.023894Z",
+  "pwd_age_days": 13
+}</pre>
+        <p><b>Impact:</b> Service tickets for SPN accounts can be requested and cracked offline if passwords are weak or old.</p>
+    
+<b>Remediation:</b><ul>
+<li>Prefer gMSA for services where possible.</li>
+<li>Rotate service account passwords regularly and enforce strong random values.</li>
+<li>Remove unused SPNs from user accounts.</li>
+</ul>
+
+      </details>
+    </div>
+    
+
+    <div class="finding sev-HIGH">
+      <details>
+        <summary>
+          <span class="badge HIGH">HIGH</span>
+          <strong>Kerberoastable service account (SPN present)</strong>
+        </summary>
+
+        <pre>{
+  "user": "svc_backup",
+  "spn_count": 1,
+  "pwd_last_set_utc": "2025-12-06T14:24:14.132960Z",
+  "pwd_age_days": 13
+}</pre>
+        <p><b>Impact:</b> Service tickets for SPN accounts can be requested and cracked offline if passwords are weak or old.</p>
+    
+<b>Remediation:</b><ul>
+<li>Prefer gMSA for services where possible.</li>
+<li>Rotate service account passwords regularly and enforce strong random values.</li>
+<li>Remove unused SPNs from user accounts.</li>
+</ul>
+
+      </details>
+    </div>
+    
+
+    <div class="finding sev-HIGH">
+      <details>
+        <summary>
+          <span class="badge HIGH">HIGH</span>
+          <strong>LDAP server signing/integrity not configured in any exported GPO</strong>
+        </summary>
+
+        <pre>{
+  "gpo_reports_scanned": 5,
+  "observed": []
+}</pre>
+        <p><b>Impact:</b> Without enforcing LDAP signing on Domain Controllers, LDAP traffic may be vulnerable depending on client behavior.</p>
+    
+<b>Remediation:</b><ul>
+<li>Configure LDAPServerIntegrity via GPO (prefer 2 = Require signing).</li>
+<li>Pilot and monitor unsigned binds before enforcing broadly.</li>
+</ul>
+
+      </details>
+    </div>
+    
+
+    <div class="finding sev-HIGH">
+      <details>
+        <summary>
+          <span class="badge HIGH">HIGH</span>
+          <strong>SMB signing requirement not configured in any exported GPO</strong>
+        </summary>
+
+        <pre>{
+  "gpo_reports_scanned": 5,
+  "observed": []
+}</pre>
+        <p><b>Impact:</b> If SMB signing is not required, some environments may be exposed to relay attacks depending on other controls.</p>
+    
+<b>Remediation:</b><ul>
+<li>Require SMB signing on servers/clients where feasible.</li>
+</ul>
+
+      </details>
+    </div>
+    
+
+    <div class="finding sev-MEDIUM">
+      <details>
+        <summary>
+          <span class="badge MEDIUM">MEDIUM</span>
+          <strong>Account has 'Password never expires'</strong>
+        </summary>
+
+        <pre>{
+  "user": "Administrator"
+}</pre>
+        <p><b>Impact:</b> Long-lived credentials increase exposure to offline cracking and credential reuse attacks.</p>
+    
+<b>Remediation:</b><ul>
+<li>Disable 'Password never expires' for user/service accounts where possible.</li>
+<li>Use gMSA for services to get automatic password rotation.</li>
+</ul>
+
+      </details>
+    </div>
+    
+
+    <div class="finding sev-MEDIUM">
+      <details>
+        <summary>
+          <span class="badge MEDIUM">MEDIUM</span>
+          <strong>Account has 'Password never expires'</strong>
+        </summary>
+
+        <pre>{
+  "user": "Guest"
+}</pre>
+        <p><b>Impact:</b> Long-lived credentials increase exposure to offline cracking and credential reuse attacks.</p>
+    
+<b>Remediation:</b><ul>
+<li>Disable 'Password never expires' for user/service accounts where possible.</li>
+<li>Use gMSA for services to get automatic password rotation.</li>
+</ul>
+
+      </details>
+    </div>
+    
+
+    <div class="finding sev-MEDIUM">
+      <details>
+        <summary>
+          <span class="badge MEDIUM">MEDIUM</span>
+          <strong>Account has 'Password never expires'</strong>
+        </summary>
+
+        <pre>{
+  "user": "john.smith"
+}</pre>
+        <p><b>Impact:</b> Long-lived credentials increase exposure to offline cracking and credential reuse attacks.</p>
+    
+<b>Remediation:</b><ul>
+<li>Disable 'Password never expires' for user/service accounts where possible.</li>
+<li>Use gMSA for services to get automatic password rotation.</li>
+</ul>
+
+      </details>
+    </div>
+    
+
+    <div class="finding sev-MEDIUM">
+      <details>
+        <summary>
+          <span class="badge MEDIUM">MEDIUM</span>
+          <strong>MachineAccountQuota is greater than 0</strong>
+        </summary>
+
+        <pre>{
+  "ms-DS-MachineAccountQuota": 10
+}</pre>
+        <p><b>Impact:</b> Allows authenticated users to join machines to the domain, which can enable certain abuse paths in misconfigured environments.</p>
+    
+<b>Remediation:</b><ul>
+<li>Set MachineAccountQuota to 0 unless you explicitly need self-service joins.</li>
+<li>If self-service joins are needed, restrict who can join machines using delegated OU permissions.</li>
+</ul>
+
+      </details>
+    </div>
+    
+
+    <div class="finding sev-MEDIUM">
+      <details>
+        <summary>
+          <span class="badge MEDIUM">MEDIUM</span>
+          <strong>LDAP client signing/integrity not configured in any exported GPO</strong>
+        </summary>
+
+        <pre>{
+  "gpo_reports_scanned": 5,
+  "observed": []
+}</pre>
+        <p><b>Impact:</b> Clients may perform unsigned LDAP binds depending on defaults and application behavior.</p>
+    
+<b>Remediation:</b><ul>
+<li>Configure LDAPClientIntegrity via GPO where appropriate.</li>
+</ul>
+
+      </details>
+    </div>
+    
+
+    <div class="finding sev-MEDIUM">
+      <details>
+        <summary>
+          <span class="badge MEDIUM">MEDIUM</span>
+          <strong>LDAP channel binding not configured in any exported GPO</strong>
+        </summary>
+
+        <pre>{
+  "gpo_reports_scanned": 5,
+  "observed": []
+}</pre>
+        <p><b>Impact:</b> Channel binding can reduce certain relay-style risks but may affect legacy compatibility.</p>
+    
+<b>Remediation:</b><ul>
+<li>Evaluate enforcing LdapEnforceChannelBinding via staged rollout.</li>
+</ul>
+
+      </details>
+    </div>
+    
+
+    <div class="finding sev-MEDIUM">
+      <details>
+        <summary>
+          <span class="badge MEDIUM">MEDIUM</span>
+          <strong>LM/NTLM compatibility level not configured in any exported GPO</strong>
+        </summary>
+
+        <pre>{
+  "gpo_reports_scanned": 5,
+  "observed": []
+}</pre>
+        <p><b>Impact:</b> Without setting LmCompatibilityLevel, systems may operate with weaker defaults depending on OS version/local policy.</p>
+    
+<b>Remediation:</b><ul>
+<li>Set LmCompatibilityLevel to a secure value (commonly 5 for NTLMv2-only) where compatible.</li>
+</ul>
+
+      </details>
+    </div>
+    
