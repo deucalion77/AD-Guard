@@ -66,7 +66,7 @@ It does not modify Active Directory objects or credentials.</p>
   <li>Collapsible findings for readability</li>
   <li>Right-aligned severity distribution chart with percentages</li>
 </ul>
-
+<h5>You can view a example reoprt at https://deucalion77.github.io/AD-Guard/ 
 <hr>
 
 <h2>🖥️ Supported Environment</h2>
@@ -86,8 +86,8 @@ It does not modify Active Directory objects or credentials.</p>
 
 <h3>PowerShell Modules</h3>
 <ul>
-  <li>ActiveDirectory</li>
-  <li>GroupPolicy</li>
+  <li><pre><code>Get-WindowsCapability -Name RSAT.ActiveDirectory* -Online</code></pre></li>
+  <li><pre><code>Add-WindowsCapability -Online -Name RSAT.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0</code></pre></li>
 </ul>
 
 <h3>Python</h3>
@@ -123,8 +123,6 @@ Invoke-WebRequest https://cdn.jsdelivr.net/npm/chart.js `
 
 <hr>
   
-<h5>You can view a example reoprt at https://deucalion77.github.io/AD-Guard/ 
-<hr>
 <h2>⚠️ Disclaimer</h2>
 
 <p>
