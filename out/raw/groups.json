@@ -1,0 +1,474 @@
+﻿[
+    {
+        "Name":  "Administrators",
+        "SamAccountName":  "Administrators",
+        "DistinguishedName":  "CN=Administrators,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  1
+    },
+    {
+        "Name":  "Users",
+        "SamAccountName":  "Users",
+        "DistinguishedName":  "CN=Users,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Guests",
+        "SamAccountName":  "Guests",
+        "DistinguishedName":  "CN=Guests,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Print Operators",
+        "SamAccountName":  "Print Operators",
+        "DistinguishedName":  "CN=Print Operators,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  1
+    },
+    {
+        "Name":  "Backup Operators",
+        "SamAccountName":  "Backup Operators",
+        "DistinguishedName":  "CN=Backup Operators,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  1
+    },
+    {
+        "Name":  "Replicator",
+        "SamAccountName":  "Replicator",
+        "DistinguishedName":  "CN=Replicator,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  1
+    },
+    {
+        "Name":  "Remote Desktop Users",
+        "SamAccountName":  "Remote Desktop Users",
+        "DistinguishedName":  "CN=Remote Desktop Users,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Network Configuration Operators",
+        "SamAccountName":  "Network Configuration Operators",
+        "DistinguishedName":  "CN=Network Configuration Operators,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Performance Monitor Users",
+        "SamAccountName":  "Performance Monitor Users",
+        "DistinguishedName":  "CN=Performance Monitor Users,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Performance Log Users",
+        "SamAccountName":  "Performance Log Users",
+        "DistinguishedName":  "CN=Performance Log Users,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Distributed COM Users",
+        "SamAccountName":  "Distributed COM Users",
+        "DistinguishedName":  "CN=Distributed COM Users,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "IIS_IUSRS",
+        "SamAccountName":  "IIS_IUSRS",
+        "DistinguishedName":  "CN=IIS_IUSRS,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Cryptographic Operators",
+        "SamAccountName":  "Cryptographic Operators",
+        "DistinguishedName":  "CN=Cryptographic Operators,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Event Log Readers",
+        "SamAccountName":  "Event Log Readers",
+        "DistinguishedName":  "CN=Event Log Readers,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Certificate Service DCOM Access",
+        "SamAccountName":  "Certificate Service DCOM Access",
+        "DistinguishedName":  "CN=Certificate Service DCOM Access,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "RDS Remote Access Servers",
+        "SamAccountName":  "RDS Remote Access Servers",
+        "DistinguishedName":  "CN=RDS Remote Access Servers,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "RDS Endpoint Servers",
+        "SamAccountName":  "RDS Endpoint Servers",
+        "DistinguishedName":  "CN=RDS Endpoint Servers,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "RDS Management Servers",
+        "SamAccountName":  "RDS Management Servers",
+        "DistinguishedName":  "CN=RDS Management Servers,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Hyper-V Administrators",
+        "SamAccountName":  "Hyper-V Administrators",
+        "DistinguishedName":  "CN=Hyper-V Administrators,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Access Control Assistance Operators",
+        "SamAccountName":  "Access Control Assistance Operators",
+        "DistinguishedName":  "CN=Access Control Assistance Operators,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Remote Management Users",
+        "SamAccountName":  "Remote Management Users",
+        "DistinguishedName":  "CN=Remote Management Users,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Storage Replica Administrators",
+        "SamAccountName":  "Storage Replica Administrators",
+        "DistinguishedName":  "CN=Storage Replica Administrators,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Domain Computers",
+        "SamAccountName":  "Domain Computers",
+        "DistinguishedName":  "CN=Domain Computers,CN=Users,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Domain Controllers",
+        "SamAccountName":  "Domain Controllers",
+        "DistinguishedName":  "CN=Domain Controllers,CN=Users,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  1
+    },
+    {
+        "Name":  "Schema Admins",
+        "SamAccountName":  "Schema Admins",
+        "DistinguishedName":  "CN=Schema Admins,CN=Users,DC=corp,DC=local",
+        "GroupScope":  2,
+        "GroupCategory":  1,
+        "adminCount":  1
+    },
+    {
+        "Name":  "Enterprise Admins",
+        "SamAccountName":  "Enterprise Admins",
+        "DistinguishedName":  "CN=Enterprise Admins,CN=Users,DC=corp,DC=local",
+        "GroupScope":  2,
+        "GroupCategory":  1,
+        "adminCount":  1
+    },
+    {
+        "Name":  "Cert Publishers",
+        "SamAccountName":  "Cert Publishers",
+        "DistinguishedName":  "CN=Cert Publishers,CN=Users,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Domain Admins",
+        "SamAccountName":  "Domain Admins",
+        "DistinguishedName":  "CN=Domain Admins,CN=Users,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  1
+    },
+    {
+        "Name":  "Domain Users",
+        "SamAccountName":  "Domain Users",
+        "DistinguishedName":  "CN=Domain Users,CN=Users,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Domain Guests",
+        "SamAccountName":  "Domain Guests",
+        "DistinguishedName":  "CN=Domain Guests,CN=Users,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Group Policy Creator Owners",
+        "SamAccountName":  "Group Policy Creator Owners",
+        "DistinguishedName":  "CN=Group Policy Creator Owners,CN=Users,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "RAS and IAS Servers",
+        "SamAccountName":  "RAS and IAS Servers",
+        "DistinguishedName":  "CN=RAS and IAS Servers,CN=Users,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Server Operators",
+        "SamAccountName":  "Server Operators",
+        "DistinguishedName":  "CN=Server Operators,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  1
+    },
+    {
+        "Name":  "Account Operators",
+        "SamAccountName":  "Account Operators",
+        "DistinguishedName":  "CN=Account Operators,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  1
+    },
+    {
+        "Name":  "Pre-Windows 2000 Compatible Access",
+        "SamAccountName":  "Pre-Windows 2000 Compatible Access",
+        "DistinguishedName":  "CN=Pre-Windows 2000 Compatible Access,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Incoming Forest Trust Builders",
+        "SamAccountName":  "Incoming Forest Trust Builders",
+        "DistinguishedName":  "CN=Incoming Forest Trust Builders,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Windows Authorization Access Group",
+        "SamAccountName":  "Windows Authorization Access Group",
+        "DistinguishedName":  "CN=Windows Authorization Access Group,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Terminal Server License Servers",
+        "SamAccountName":  "Terminal Server License Servers",
+        "DistinguishedName":  "CN=Terminal Server License Servers,CN=Builtin,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Allowed RODC Password Replication Group",
+        "SamAccountName":  "Allowed RODC Password Replication Group",
+        "DistinguishedName":  "CN=Allowed RODC Password Replication Group,CN=Users,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Denied RODC Password Replication Group",
+        "SamAccountName":  "Denied RODC Password Replication Group",
+        "DistinguishedName":  "CN=Denied RODC Password Replication Group,CN=Users,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Read-only Domain Controllers",
+        "SamAccountName":  "Read-only Domain Controllers",
+        "DistinguishedName":  "CN=Read-only Domain Controllers,CN=Users,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  1
+    },
+    {
+        "Name":  "Enterprise Read-only Domain Controllers",
+        "SamAccountName":  "Enterprise Read-only Domain Controllers",
+        "DistinguishedName":  "CN=Enterprise Read-only Domain Controllers,CN=Users,DC=corp,DC=local",
+        "GroupScope":  2,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Cloneable Domain Controllers",
+        "SamAccountName":  "Cloneable Domain Controllers",
+        "DistinguishedName":  "CN=Cloneable Domain Controllers,CN=Users,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Protected Users",
+        "SamAccountName":  "Protected Users",
+        "DistinguishedName":  "CN=Protected Users,CN=Users,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Key Admins",
+        "SamAccountName":  "Key Admins",
+        "DistinguishedName":  "CN=Key Admins,CN=Users,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  1
+    },
+    {
+        "Name":  "Enterprise Key Admins",
+        "SamAccountName":  "Enterprise Key Admins",
+        "DistinguishedName":  "CN=Enterprise Key Admins,CN=Users,DC=corp,DC=local",
+        "GroupScope":  2,
+        "GroupCategory":  1,
+        "adminCount":  1
+    },
+    {
+        "Name":  "DnsAdmins",
+        "SamAccountName":  "DnsAdmins",
+        "DistinguishedName":  "CN=DnsAdmins,CN=Users,DC=corp,DC=local",
+        "GroupScope":  0,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "DnsUpdateProxy",
+        "SamAccountName":  "DnsUpdateProxy",
+        "DistinguishedName":  "CN=DnsUpdateProxy,CN=Users,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "HQ-Finance",
+        "SamAccountName":  "HQ-Finance",
+        "DistinguishedName":  "CN=HQ-Finance,OU=HQ_Users,OU=HQ,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "HQ-HR",
+        "SamAccountName":  "HQ-HR",
+        "DistinguishedName":  "CN=HQ-HR,OU=HQ_Users,OU=HQ,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "HQ-ITSupport",
+        "SamAccountName":  "HQ-ITSupport",
+        "DistinguishedName":  "CN=HQ-ITSupport,OU=HQ_Users,OU=HQ,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "HQ-Sales",
+        "SamAccountName":  "HQ-Sales",
+        "DistinguishedName":  "CN=HQ-Sales,OU=HQ_Users,OU=HQ,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Tier0_Admins",
+        "SamAccountName":  "Tier0_Admins",
+        "DistinguishedName":  "CN=Tier0_Admins,OU=HQ,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Tier1_Admins",
+        "SamAccountName":  "Tier1_Admins",
+        "DistinguishedName":  "CN=Tier1_Admins,OU=HQ,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "Tier2_Admins",
+        "SamAccountName":  "Tier2_Admins",
+        "DistinguishedName":  "CN=Tier2_Admins,OU=HQ,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "HQ_FileServer_Admins",
+        "SamAccountName":  "HQ_FileServer_Admins",
+        "DistinguishedName":  "CN=HQ_FileServer_Admins,OU=HQ_Tier1,OU=HQ,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "HQ_AppServer_Admins",
+        "SamAccountName":  "HQ_AppServer_Admins",
+        "DistinguishedName":  "CN=HQ_AppServer_Admins,OU=HQ_Tier1,OU=HQ,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "HQ_Backup_Operators",
+        "SamAccountName":  "HQ_Backup_Operators",
+        "DistinguishedName":  "CN=HQ_Backup_Operators,OU=HQ,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    },
+    {
+        "Name":  "AD-Audit-Readers",
+        "SamAccountName":  "AD-Audit-Readers",
+        "DistinguishedName":  "CN=AD-Audit-Readers,DC=corp,DC=local",
+        "GroupScope":  1,
+        "GroupCategory":  1,
+        "adminCount":  null
+    }
+]

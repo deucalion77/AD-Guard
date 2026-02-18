@@ -1,0 +1,32 @@
+﻿[
+    {
+        "DisplayName":  "GPO_DC_Kerberos_AESOnly",
+        "Id":  "0d96d026-bb96-425b-a770-c7e64b448c50",
+        "CreationTime":  "\/Date(1765032299000)\/",
+        "ModificationTime":  "\/Date(1765032412000)\/"
+    },
+    {
+        "DisplayName":  "Default Domain Policy",
+        "Id":  "31b2f340-016d-11d2-945f-00c04fb984f9",
+        "CreationTime":  "\/Date(1763030043000)\/",
+        "ModificationTime":  "\/Date(1763030394000)\/"
+    },
+    {
+        "DisplayName":  "Default Domain Controllers Policy",
+        "Id":  "6ac1786c-016f-11d2-945f-00c04fb984f9",
+        "CreationTime":  "\/Date(1763030043000)\/",
+        "ModificationTime":  "\/Date(1763030042000)\/"
+    },
+    {
+        "DisplayName":  "GPO_Domain_Kerberos_FAST",
+        "Id":  "9d3aa920-c528-4524-891f-a81bb3fd5dfd",
+        "CreationTime":  "\/Date(1765032511000)\/",
+        "ModificationTime":  "\/Date(1765188100000)\/"
+    },
+    {
+        "DisplayName":  "GPO_Tier1_Deny_ServiceAccount_InteractiveLogon",
+        "Id":  "feaf38bc-d775-428c-8f4d-80314af7bbd7",
+        "CreationTime":  "\/Date(1765031423000)\/",
+        "ModificationTime":  "\/Date(1765031658000)\/"
+    }
+]

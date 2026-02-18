@@ -1,0 +1,398 @@
+﻿[
+    {
+        "SamAccountName":  "Administrator",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134074988840018943,
+        "userAccountControl":  66048,
+        "PasswordNeverExpires":  true,
+        "LastLogonDate":  "\/Date(1766150339256)\/",
+        "memberOf":  [
+                         "CN=Tier0_Admins,OU=HQ,DC=corp,DC=local",
+                         "CN=Protected Users,CN=Users,DC=corp,DC=local",
+                         "CN=Group Policy Creator Owners,CN=Users,DC=corp,DC=local",
+                         "CN=Domain Admins,CN=Users,DC=corp,DC=local",
+                         "CN=Enterprise Admins,CN=Users,DC=corp,DC=local",
+                         "CN=Schema Admins,CN=Users,DC=corp,DC=local",
+                         "CN=Administrators,CN=Builtin,DC=corp,DC=local"
+                     ],
+        "adminCount":  1
+    },
+    {
+        "SamAccountName":  "Guest",
+        "UserPrincipalName":  null,
+        "Enabled":  false,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  0,
+        "userAccountControl":  66082,
+        "PasswordNeverExpires":  true,
+        "LastLogonDate":  null,
+        "memberOf":  [
+                         "CN=Guests,CN=Builtin,DC=corp,DC=local"
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "krbtgt",
+        "UserPrincipalName":  null,
+        "Enabled":  false,
+        "servicePrincipalName":  [
+                                     "kadmin/changepw"
+                                 ],
+        "pwdLastSet":  134075036970936485,
+        "userAccountControl":  514,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  null,
+        "memberOf":  [
+                         "CN=Denied RODC Password Replication Group,CN=Users,DC=corp,DC=local"
+                     ],
+        "adminCount":  1
+    },
+    {
+        "SamAccountName":  "BRANCH$",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134075963179468764,
+        "userAccountControl":  2080,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  null,
+        "memberOf":  [
+
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "svc_file",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+                                     "CIFS/HQ-FS01.corp.local",
+                                     "CIFS/HQ-FS01"
+                                 ],
+        "pwdLastSet":  134095046538988497,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  "\/Date(1765027776696)\/",
+        "memberOf":  [
+
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "svc_app",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+                                     "HTTP/HQ-APP01.corp.local",
+                                     "HTTP/HQ-APP01"
+                                 ],
+        "pwdLastSet":  134095046540238944,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  "\/Date(1763381767738)\/",
+        "memberOf":  [
+
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "svc_backup",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+                                     "backup/HQ-FS01"
+                                 ],
+        "pwdLastSet":  134095046541329596,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  "\/Date(1765027548477)\/",
+        "memberOf":  [
+
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "john.smith",
+        "UserPrincipalName":  "john@corp.local",
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134106181504913999,
+        "userAccountControl":  66048,
+        "PasswordNeverExpires":  true,
+        "LastLogonDate":  "\/Date(1766144560866)\/",
+        "memberOf":  [
+
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "sarah.lee",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134078507314513347,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  null,
+        "memberOf":  [
+
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "michael.adams",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134078507315933781,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  null,
+        "memberOf":  [
+                         "CN=HQ-Finance,OU=HQ_Users,OU=HQ,DC=corp,DC=local"
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "emma.brown",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134078507316879171,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  null,
+        "memberOf":  [
+                         "CN=HQ-Finance,OU=HQ_Users,OU=HQ,DC=corp,DC=local"
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "olivia.davis",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134078507318355736,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  null,
+        "memberOf":  [
+                         "CN=HQ-HR,OU=HQ_Users,OU=HQ,DC=corp,DC=local"
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "liam.tech",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134078507319868553,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  null,
+        "memberOf":  [
+                         "CN=HQ-ITSupport,OU=HQ_Users,OU=HQ,DC=corp,DC=local"
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "isabella.martinez",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134078507323651041,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  null,
+        "memberOf":  [
+
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "james.wilson",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134078507324910268,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  null,
+        "memberOf":  [
+
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "noah.intern",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134078507326411279,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  null,
+        "memberOf":  [
+
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "ava.intern",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134078507327612294,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  null,
+        "memberOf":  [
+
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "T0_Admin1",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134095024608658005,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  null,
+        "memberOf":  [
+                         "CN=Tier0_Admins,OU=HQ,DC=corp,DC=local",
+                         "CN=Protected Users,CN=Users,DC=corp,DC=local",
+                         "CN=Domain Admins,CN=Users,DC=corp,DC=local"
+                     ],
+        "adminCount":  1
+    },
+    {
+        "SamAccountName":  "T0_Admin2",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134095024609594245,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  null,
+        "memberOf":  [
+                         "CN=Tier0_Admins,OU=HQ,DC=corp,DC=local",
+                         "CN=Protected Users,CN=Users,DC=corp,DC=local",
+                         "CN=Domain Admins,CN=Users,DC=corp,DC=local"
+                     ],
+        "adminCount":  1
+    },
+    {
+        "SamAccountName":  "T2_Admin1",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134095027349593391,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  null,
+        "memberOf":  [
+                         "CN=Tier2_Admins,OU=HQ,DC=corp,DC=local"
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "T2_Admin2",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134095027350530856,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  null,
+        "memberOf":  [
+                         "CN=Tier2_Admins,OU=HQ,DC=corp,DC=local"
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "T1_Admin1",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134095028419596155,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  null,
+        "memberOf":  [
+                         "CN=Tier1_Admins,OU=HQ,DC=corp,DC=local"
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "T1_Admin2",
+        "UserPrincipalName":  null,
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134095028420690319,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  null,
+        "memberOf":  [
+                         "CN=Tier1_Admins,OU=HQ,DC=corp,DC=local"
+                     ],
+        "adminCount":  null
+    },
+    {
+        "SamAccountName":  "svc_ad_audit",
+        "UserPrincipalName":  "svc_ad_audit@corp.local",
+        "Enabled":  true,
+        "servicePrincipalName":  [
+
+                                 ],
+        "pwdLastSet":  134106230538664566,
+        "userAccountControl":  512,
+        "PasswordNeverExpires":  false,
+        "LastLogonDate":  "\/Date(1766151424365)\/",
+        "memberOf":  [
+                         "CN=AD-Audit-Readers,DC=corp,DC=local"
+                     ],
+        "adminCount":  null
+    }
+]

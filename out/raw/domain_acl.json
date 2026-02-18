@@ -1,0 +1,643 @@
+﻿[
+    {
+        "IdentityReference":  {
+                                  "Value":  "Everyone"
+                              },
+        "ActiveDirectoryRights":  2,
+        "AccessControlType":  1,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "Everyone"
+                              },
+        "ActiveDirectoryRights":  16,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+                              },
+        "ActiveDirectoryRights":  131220,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\Authenticated Users"
+                              },
+        "ActiveDirectoryRights":  131220,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\SYSTEM"
+                              },
+        "ActiveDirectoryRights":  983551,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "BUILTIN\\Administrators"
+                              },
+        "ActiveDirectoryRights":  983485,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  1,
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-554"
+                              },
+        "ActiveDirectoryRights":  131088,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-554"
+                              },
+        "ActiveDirectoryRights":  4,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  1,
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "CORP\\Domain Admins"
+                              },
+        "ActiveDirectoryRights":  917949,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "CORP\\Enterprise Admins"
+                              },
+        "ActiveDirectoryRights":  983551,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  1,
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "CORP\\AD-Audit-Readers"
+                              },
+        "ActiveDirectoryRights":  131220,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  1,
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "CREATOR OWNER"
+                              },
+        "ActiveDirectoryRights":  8,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "9b026da6-0d3c-465c-8bee-5199d7165cba",
+        "InheritedObjectType":  "bf967a86-0de6-11d0-a285-00aa003049e2"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "1131f6ac-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "1131f6ab-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "1131f6aa-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "89e95b76-444d-4c62-991a-0facbeda640c",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "1131f6ae-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+                              },
+        "ActiveDirectoryRights":  16,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "b7c69e6d-2cc7-11d2-854e-00a0c983f608",
+        "InheritedObjectType":  "bf967aba-0de6-11d0-a285-00aa003049e2"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+                              },
+        "ActiveDirectoryRights":  16,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "b7c69e6d-2cc7-11d2-854e-00a0c983f608",
+        "InheritedObjectType":  "bf967a86-0de6-11d0-a285-00aa003049e2"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS"
+                              },
+        "ActiveDirectoryRights":  16,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "b7c69e6d-2cc7-11d2-854e-00a0c983f608",
+        "InheritedObjectType":  "bf967a9c-0de6-11d0-a285-00aa003049e2"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\SELF"
+                              },
+        "ActiveDirectoryRights":  8,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "9b026da6-0d3c-465c-8bee-5199d7165cba",
+        "InheritedObjectType":  "bf967a86-0de6-11d0-a285-00aa003049e2"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\SELF"
+                              },
+        "ActiveDirectoryRights":  32,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "ea1b7b93-5e48-46d5-bc6c-4df4fda78a35",
+        "InheritedObjectType":  "bf967a86-0de6-11d0-a285-00aa003049e2"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\SELF"
+                              },
+        "ActiveDirectoryRights":  304,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "91e647de-d96f-4b70-9557-d63ff4f3ccd8",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\SELF"
+                              },
+        "ActiveDirectoryRights":  48,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  1,
+        "ObjectType":  "3f78c3e5-f79a-46bd-a0b8-9d18116ddc79",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\Authenticated Users"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "05c74c5e-4deb-43b4-bd9f-86664c2a7fd5",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\Authenticated Users"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "ccc2dc7d-a6ad-4a7a-8846-c04e3cc53501",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\Authenticated Users"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "280f369c-67c7-438e-ae98-1d46f3c6f541",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "NT AUTHORITY\\Authenticated Users"
+                              },
+        "ActiveDirectoryRights":  16,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "b8119fd0-04f6-4762-ab7a-4986c76b3f9a",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "BUILTIN\\Administrators"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "1131f6ae-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "BUILTIN\\Administrators"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "BUILTIN\\Administrators"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "1131f6ac-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "BUILTIN\\Administrators"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "1131f6ab-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "BUILTIN\\Administrators"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "1131f6aa-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "BUILTIN\\Administrators"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "89e95b76-444d-4c62-991a-0facbeda640c",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-554"
+                              },
+        "ActiveDirectoryRights":  131220,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "bf967a9c-0de6-11d0-a285-00aa003049e2"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-554"
+                              },
+        "ActiveDirectoryRights":  131220,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "bf967aba-0de6-11d0-a285-00aa003049e2"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-554"
+                              },
+        "ActiveDirectoryRights":  131220,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "00000000-0000-0000-0000-000000000000",
+        "InheritedObjectType":  "4828cc14-1437-45bc-9b07-ad6f015e5f28"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-554"
+                              },
+        "ActiveDirectoryRights":  16,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "b8119fd0-04f6-4762-ab7a-4986c76b3f9a",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-554"
+                              },
+        "ActiveDirectoryRights":  16,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "59ba2f42-79a2-11d0-9020-00c04fc2d3cf",
+        "InheritedObjectType":  "bf967aba-0de6-11d0-a285-00aa003049e2"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-554"
+                              },
+        "ActiveDirectoryRights":  16,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "037088f8-0ae1-11d2-b422-00a0c968f939",
+        "InheritedObjectType":  "4828cc14-1437-45bc-9b07-ad6f015e5f28"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-554"
+                              },
+        "ActiveDirectoryRights":  16,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "4c164200-20c0-11d0-a768-00aa006e0529",
+        "InheritedObjectType":  "bf967aba-0de6-11d0-a285-00aa003049e2"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-554"
+                              },
+        "ActiveDirectoryRights":  16,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "5f202010-79a5-11d0-9020-00c04fc2d4cf",
+        "InheritedObjectType":  "4828cc14-1437-45bc-9b07-ad6f015e5f28"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-554"
+                              },
+        "ActiveDirectoryRights":  16,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "c7407360-20bf-11d0-a768-00aa006e0529",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-554"
+                              },
+        "ActiveDirectoryRights":  16,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "59ba2f42-79a2-11d0-9020-00c04fc2d3cf",
+        "InheritedObjectType":  "4828cc14-1437-45bc-9b07-ad6f015e5f28"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-554"
+                              },
+        "ActiveDirectoryRights":  16,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "5f202010-79a5-11d0-9020-00c04fc2d4cf",
+        "InheritedObjectType":  "bf967aba-0de6-11d0-a285-00aa003049e2"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-554"
+                              },
+        "ActiveDirectoryRights":  16,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "bc0ac240-79a9-11d0-9020-00c04fc2d4cf",
+        "InheritedObjectType":  "bf967aba-0de6-11d0-a285-00aa003049e2"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-554"
+                              },
+        "ActiveDirectoryRights":  16,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "037088f8-0ae1-11d2-b422-00a0c968f939",
+        "InheritedObjectType":  "bf967aba-0de6-11d0-a285-00aa003049e2"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-554"
+                              },
+        "ActiveDirectoryRights":  16,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "bc0ac240-79a9-11d0-9020-00c04fc2d4cf",
+        "InheritedObjectType":  "4828cc14-1437-45bc-9b07-ad6f015e5f28"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-554"
+                              },
+        "ActiveDirectoryRights":  16,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  2,
+        "ObjectType":  "4c164200-20c0-11d0-a768-00aa006e0529",
+        "InheritedObjectType":  "4828cc14-1437-45bc-9b07-ad6f015e5f28"
+    },
+    {
+        "IdentityReference":  {
+                                  "BinaryLength":  16,
+                                  "AccountDomainSid":  null,
+                                  "Value":  "S-1-5-32-557"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "e2a36dc9-ae17-47c3-b58b-be34c55ba633",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "CORP\\Enterprise Read-only Domain Controllers"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "1131f6aa-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "CORP\\Domain Controllers"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "1131f6ad-9c07-11d1-f79f-00c04fc2dcd2",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "CORP\\Cloneable Domain Controllers"
+                              },
+        "ActiveDirectoryRights":  256,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  0,
+        "ObjectType":  "3e0f7e18-2c7a-4c10-ba82-4d926db99a3e",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "CORP\\Key Admins"
+                              },
+        "ActiveDirectoryRights":  48,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  1,
+        "ObjectType":  "5b47d60f-6090-40b2-9f37-2a4de88f3063",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "IdentityReference":  {
+                                  "Value":  "CORP\\Enterprise Key Admins"
+                              },
+        "ActiveDirectoryRights":  48,
+        "AccessControlType":  0,
+        "IsInherited":  false,
+        "InheritanceType":  1,
+        "ObjectType":  "5b47d60f-6090-40b2-9f37-2a4de88f3063",
+        "InheritedObjectType":  "00000000-0000-0000-0000-000000000000"
+    }
+]

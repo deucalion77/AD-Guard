@@ -1,0 +1,1275 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ADGuard Report</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #111827;
+    --muted: #6b7280;
+    --card: #f8fafc;
+    --border: #e5e7eb;
+
+    --crit: #b91c1c;
+    --high: #ea580c;
+    --med:  #ca8a04;
+    --low:  #2563eb;
+    --info: #475569;
+  }
+
+  body.dark {
+    --bg: #0b1220;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --card: #0f172a;
+    --border: #1f2937;
+  }
+
+  body {
+    margin: 0;
+    font-family: Segoe UI, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .topbar {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .title h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .meta {
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .toggle {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    padding: 8px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+
+  .wrap {
+    padding: 18px 20px 26px 20px;
+  }
+
+  .summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 14px;
+  }
+
+  .card .k {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  .card .v {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .chart-container {
+    width: 600px;
+    height: 400px;
+    float: right;
+    margin-left: 30px;
+    margin-bottom: 20px;
+  }
+
+  .finding {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin: 12px 0;
+    background: var(--card);
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+
+  .badge.CRITICAL { background: rgba(185,28,28,0.18); color: var(--crit); }
+  .badge.HIGH     { background: rgba(234,88,12,0.18); color: var(--high); }
+  .badge.MEDIUM   { background: rgba(202,138,4,0.18); color: var(--med);  }
+  .badge.LOW      { background: rgba(37,99,235,0.18); color: var(--low);  }
+  .badge.INFO     { background: rgba(71,85,105,0.18); color: var(--info); }
+
+  .finding h3 {
+    margin: 8px 0 8px 0;
+    font-size: 15px;
+  }
+
+  pre {
+    background: rgba(15, 23, 42, 0.06);
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    border-radius: 12px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  body.dark pre {
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  ul {
+    margin: 8px 0 0 18px;
+  }
+
+  .muted {
+    color: var(--muted);
+  }
+
+  .clear {
+    clear: both;
+  }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="title">
+      <h1>ADGuard Report</h1>
+      <div class="meta">
+        Generated (UTC): <b>2026-01-14T11:04:44.339494+00:00</b> &nbsp; | &nbsp;
+        Posture score: <b>0/100</b> &nbsp; | &nbsp;
+        Total findings: <b>36</b>
+      </div>
+    </div>
+    <button class="toggle" onclick="toggleTheme()">Toggle dark mode</button>
+  </div>
+
+  <div class="wrap">
+
+    <div class="summary">
+      <div class="card"><div class="k">CRITICAL</div><div class="v">1</div></div>
+      <div class="card"><div class="k">HIGH</div><div class="v">5</div></div>
+      <div class="card"><div class="k">MEDIUM</div><div class="v">7</div></div>
+    </div>
+
+    <div class="chart-container">
+      <canvas id="severityPie" width="600" height="400"></canvas>
+      <div class="muted" style="font-size:12px;margin-top:8px;">
+        Legend: CRITICAL / HIGH / MEDIUM / LOW / INFO
+      </div>
+    </div>
+
+    <script>
+      const labels = ["CRITICAL", "HIGH", "MEDIUM", "LOW", "INFO"];
+      const values = [1, 5, 7, 23, 0];
+      const total = values.reduce((a,b) => a + b, 0);
+
+      const data = {
+        labels: labels,
+        datasets: [{
+          data: values
+        }]
+      };
+
+      const pctLabelsPlugin = {
+        id: 'pctLabelsPlugin',
+        afterDatasetsDraw(chart, args, pluginOptions) {
+          const {ctx} = chart;
+          const meta = chart.getDatasetMeta(0);
+          ctx.save();
+          ctx.font = '12px Segoe UI, Arial, sans-serif';
+          ctx.textBaseline = 'middle';
+
+          meta.data.forEach((el, i) => {
+            const val = values[i];
+            if (!val) return;
+            const pct = total ? Math.round((val / total) * 100) : 0;
+
+            // position labels to the right side of the slice
+            const pos = el.tooltipPosition();
+            const x = pos.x + 30;
+            const y = pos.y;
+
+            ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--text').trim() || '#111827';
+            ctx.fillText(`${labels[i]}: ${pct}%`, x, y);
+          });
+          ctx.restore();
+        }
+      };
+
+      new Chart(
+        document.getElementById('severityPie'),
+        {
+          type: 'pie',
+          data: data,
+          options: {
+            responsive: false,
+            plugins: {
+              legend: { display: true, position: 'bottom' }
+            }
+          },
+          plugins: [pctLabelsPlugin]
+        }
+      );
+
+      function toggleTheme() {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('adguardTheme', document.body.classList.contains('dark') ? 'dark' : 'light');
+      }
+
+      (function initTheme() {
+        const t = localStorage.getItem('adguardTheme');
+        if (t === 'dark') document.body.classList.add('dark');
+      })();
+    </script>
+
+    <div class="clear"></div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge CRITICAL">CRITICAL</span>
+        <span class="muted">AD-ACL-001</span>
+      </div>
+      <h3>Dangerous delegated rights detected on high-value AD container</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "object": "domain_controllers_ou",
+  "principal": "CORP\\john.smith",
+  "principal_sam": "john.smith",
+  "rights": [
+    "CreateChild",
+    "DeleteChild",
+    "ExtendedRight",
+    "GenericAll",
+    "Self",
+    "WriteDacl",
+    "WriteOwner",
+    "WriteProperty"
+  ],
+  "activeDirectoryRights_raw": 983551,
+  "accessControlType_raw": 0,
+  "source_file": "domain_controllers_ou.json"
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Explicit powerful ACLs on Tier-0 containers can enable privilege escalation or domain takeover depending on the principal and target objects. See Microsoft's Privileged Access documentation: <a href="https://learn.microsoft.com/en-us/security/privileged-access-workstations/overview" target="_blank">https://learn.microsoft.com/en-us/security/privileged-access-workstations/</a></div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Remove unnecessary delegated rights (GenericAll/GenericWrite/WriteDACL/WriteOwner/Extended rights).</li>
+
+        <li>Restrict Tier-0 ACLs (Domain Controllers OU, privileged groups) to tightly controlled admin groups.</li>
+
+        <li>Re-run scan to confirm exposure is removed.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge HIGH">HIGH</span>
+        <span class="muted">AD-KERB-001</span>
+      </div>
+      <h3>Kerberoastable service account (SPN present)</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "user": "svc_file",
+  "spn_count": 2,
+  "pwd_last_set_utc": null,
+  "pwd_age_days": null
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Explicit powerful ACLs on Tier-0 containers can enable privilege escalation or domain takeover depending on the principal and target objects. See Microsoft’s guidance to help mitigate Kerberoasting: <a href="https://www.microsoft.com/en-us/security/blog/2024/10/11/microsofts-guidance-to-help-mitigate-kerberoasting/" target="_blank">https://www.microsoft.com/en-us/security/blog/2024/10/11/microsofts-guidance-to-help-mitigate-kerberoasting/</a></div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Prefer gMSA for services where possible.</li>
+
+        <li>Rotate service account passwords regularly and enforce strong random values.</li>
+
+        <li>Remove unused SPNs from user accounts.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge HIGH">HIGH</span>
+        <span class="muted">AD-KERB-001</span>
+      </div>
+      <h3>Kerberoastable service account (SPN present)</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "user": "svc_app",
+  "spn_count": 2,
+  "pwd_last_set_utc": null,
+  "pwd_age_days": null
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Explicit powerful ACLs on Tier-0 containers can enable privilege escalation or domain takeover depending on the principal and target objects. See Microsoft’s guidance to help mitigate Kerberoasting: <a href="https://www.microsoft.com/en-us/security/blog/2024/10/11/microsofts-guidance-to-help-mitigate-kerberoasting/" target="_blank">https://www.microsoft.com/en-us/security/blog/2024/10/11/microsofts-guidance-to-help-mitigate-kerberoasting/</a></div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Prefer gMSA for services where possible.</li>
+
+        <li>Rotate service account passwords regularly and enforce strong random values.</li>
+
+        <li>Remove unused SPNs from user accounts.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge HIGH">HIGH</span>
+        <span class="muted">AD-KERB-001</span>
+      </div>
+      <h3>Kerberoastable service account (SPN present)</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "user": "svc_backup",
+  "spn_count": 1,
+  "pwd_last_set_utc": null,
+  "pwd_age_days": null
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Explicit powerful ACLs on Tier-0 containers can enable privilege escalation or domain takeover depending on the principal and target objects. See Microsoft’s guidance to help mitigate Kerberoasting: <a href="https://www.microsoft.com/en-us/security/blog/2024/10/11/microsofts-guidance-to-help-mitigate-kerberoasting/" target="_blank">https://www.microsoft.com/en-us/security/blog/2024/10/11/microsofts-guidance-to-help-mitigate-kerberoasting/</a></div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Prefer gMSA for services where possible.</li>
+
+        <li>Rotate service account passwords regularly and enforce strong random values.</li>
+
+        <li>Remove unused SPNs from user accounts.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge HIGH">HIGH</span>
+        <span class="muted">GPO-LDAP-001</span>
+      </div>
+      <h3>LDAP server signing/integrity not configured in any exported GPO</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "gpo_reports_scanned": 5,
+  "observed": []
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Without enforcing LDAP signing on Domain Controllers, LDAP traffic may be vulnerable depending on client behavior.See Microsoft’s LDAP server signing requirements: <a href="https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/domain-controller-ldap-server-signing-requirements" target="_blank">https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/domain-controller-ldap-server-signing-requirements</a></div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Configure LDAPServerIntegrity via GPO (prefer 2 = Require signing).</li>
+
+        <li>Pilot and monitor unsigned binds before enforcing broadly.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge HIGH">HIGH</span>
+        <span class="muted">GPO-SMB-001</span>
+      </div>
+      <h3>SMB signing requirement not configured in any exported GPO</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "gpo_reports_scanned": 5,
+  "observed": []
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">If SMB signing is not required, some environments may be exposed to relay attacks depending on other controls.See Microsoft’s Digitally sign communications: <a href="https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/microsoft-network-server-digitally-sign-communications-always"target="_blank">https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/microsoft-network-server-digitally-sign-communications-always</a></div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Require SMB signing on servers/clients where feasible.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge MEDIUM">MEDIUM</span>
+        <span class="muted">AD-AUTH-002</span>
+      </div>
+      <h3>Account has 'Password never expires'</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "user": "Administrator"
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Long-lived credentials increase exposure to offline cracking and credential reuse attacks.See Microsoft’s Password guidance: <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/set-password-expiration-policy?view=o365-worldwide" target="_blank">https://learn.microsoft.com/en-us/microsoft-365/admin/manage/set-password-expiration-policy</a></div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Disable 'Password never expires' for user/service accounts where possible.</li>
+
+        <li>Use gMSA for services to get automatic password rotation.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge MEDIUM">MEDIUM</span>
+        <span class="muted">AD-AUTH-002</span>
+      </div>
+      <h3>Account has 'Password never expires'</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "user": "Guest"
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Long-lived credentials increase exposure to offline cracking and credential reuse attacks.See Microsoft’s Password guidance: <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/set-password-expiration-policy?view=o365-worldwide" target="_blank">https://learn.microsoft.com/en-us/microsoft-365/admin/manage/set-password-expiration-policy</a></div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Disable 'Password never expires' for user/service accounts where possible.</li>
+
+        <li>Use gMSA for services to get automatic password rotation.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge MEDIUM">MEDIUM</span>
+        <span class="muted">AD-AUTH-002</span>
+      </div>
+      <h3>Account has 'Password never expires'</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "user": "john.smith"
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Long-lived credentials increase exposure to offline cracking and credential reuse attacks.See Microsoft’s Password guidance: <a href="https://learn.microsoft.com/en-us/microsoft-365/admin/manage/set-password-expiration-policy?view=o365-worldwide" target="_blank">https://learn.microsoft.com/en-us/microsoft-365/admin/manage/set-password-expiration-policy</a></div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Disable 'Password never expires' for user/service accounts where possible.</li>
+
+        <li>Use gMSA for services to get automatic password rotation.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge MEDIUM">MEDIUM</span>
+        <span class="muted">AD-POSTURE-003</span>
+      </div>
+      <h3>MachineAccountQuota is greater than 0</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "ms-DS-MachineAccountQuota": 10
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Allows authenticated users to join machines to the domain, which can enable certain abuse paths in misconfigured environments. See Microsoft’s default workstation numbers join domain onsiderations: <a href="https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/default-workstation-numbers-join-domain" target="_blank">https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/default-workstation-numbers-join-domain</a></div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Set MachineAccountQuota to 0 unless you explicitly need self-service joins.</li>
+
+        <li>If self-service joins are needed, restrict who can join machines using delegated OU permissions.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge MEDIUM">MEDIUM</span>
+        <span class="muted">GPO-LDAP-003</span>
+      </div>
+      <h3>LDAP client signing/integrity not configured in any exported GPO</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "gpo_reports_scanned": 5,
+  "observed": []
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Clients may perform unsigned LDAP binds depending on defaults and application behavior.See Microsoft’s LDAP client signing requirements: <a href="https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/network-security-ldap-client-signing-requirements" target="_blank">https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/network-security-ldap-client-signing-requirements</a></div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Configure LDAPClientIntegrity via GPO where appropriate.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge MEDIUM">MEDIUM</span>
+        <span class="muted">GPO-LDAP-002</span>
+      </div>
+      <h3>LDAP channel binding not configured in any exported GPO</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "gpo_reports_scanned": 5,
+  "observed": []
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Channel binding can reduce certain relay-style risks but may affect legacy compatibility.See Microsoft’s LDAP server channel binding token requirements: <a href="https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/domain-controller-ldap-server-channel-binding-token-requirements" target="_blank">https://learn.microsoft.com/en-us/previous-versions/windows/security-policy-settings/domain-controller-ldap-server-channel-binding-token-requirements</a></div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Evaluate enforcing LdapEnforceChannelBinding via staged rollout.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge MEDIUM">MEDIUM</span>
+        <span class="muted">GPO-NTLM-001</span>
+      </div>
+      <h3>LM/NTLM compatibility level not configured in any exported GPO</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "gpo_reports_scanned": 5,
+  "observed": []
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Without setting LmCompatibilityLevel, systems may operate with weaker defaults depending on OS version/local policy.See Microsoft’s LAN Manager authentication level: <a href="https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/network-security-lan-manager-authentication-level"target="_blank">https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/network-security-lan-manager-authentication-level</a></div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Set LmCompatibilityLevel to a secure value (commonly 5 for NTLMv2-only) where compatible.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "Administrator",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134074988840018943
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "BRANCH$",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134075963179468764
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "svc_file",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134095046538988497
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "svc_app",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134095046540238944
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "svc_backup",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134095046541329596
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "john.smith",
+  "UserPrincipalName": "john@corp.local",
+  "pwdLastSet": 134106181504913999
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "sarah.lee",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134078507314513347
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "michael.adams",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134078507315933781
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "emma.brown",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134078507316879171
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "olivia.davis",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134078507318355736
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "liam.tech",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134078507319868553
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "isabella.martinez",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134078507323651041
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "james.wilson",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134078507324910268
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "noah.intern",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134078507326411279
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "ava.intern",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134078507327612294
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "T0_Admin1",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134095024608658005
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "T0_Admin2",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134095024609594245
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "T2_Admin1",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134095027349593391
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "T2_Admin2",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134095027350530856
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "T1_Admin1",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134095028419596155
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "T1_Admin2",
+  "UserPrincipalName": null,
+  "pwdLastSet": 134095028420690319
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-PASS-AGE-003</span>
+      </div>
+      <h3>User password older than 300 days</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "svc_ad_audit",
+  "UserPrincipalName": "svc_ad_audit@corp.local",
+  "pwdLastSet": 134106230538664566
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Passwords older than the defined rotation window may increase exposure if compromised.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Review password rotation policy.</li>
+
+        <li>Ensure password age aligns with organizational standards.</li>
+
+      </ul>
+
+    </div>
+
+
+    <div class="finding">
+      <div>
+        <span class="badge LOW">LOW</span>
+        <span class="muted">ARL-USER-001</span>
+      </div>
+      <h3>User account named jhon exists</h3>
+      <div class="muted" style="margin-top:6px;margin-bottom:6px;"><b>Evidence</b></div>
+      <pre>{
+  "SamAccountName": "john.smith",
+  "UserPrincipalName": "john@corp.local",
+  "Enabled": true
+}</pre>
+
+      <div class="muted"><b>Impact:</b></div>
+      <div style="margin-top:6px;">Unexpected or test user accounts may indicate poor identity hygiene or leftover accounts.</div>
+
+      <div class="muted" style="margin-top:10px;"><b>Remediation:</b></div>
+      <ul>
+
+        <li>Verify whether this account is legitimate.</li>
+
+        <li>Disable or remove unused or test accounts.</li>
+
+      </ul>
+
+    </div>
+
+
+  </div>
+</body>
+</html>

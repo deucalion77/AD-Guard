@@ -1,0 +1,550 @@
+{
+  "generated_utc": "2026-01-14T11:04:44.339494+00:00",
+  "posture_score": 0,
+  "finding_count": 36,
+  "findings": [
+    {
+      "id": "AD-ACL-001",
+      "title": "Dangerous delegated rights detected on high-value AD container",
+      "severity": "CRITICAL",
+      "evidence": {
+        "object": "domain_controllers_ou",
+        "principal": "CORP\\john.smith",
+        "principal_sam": "john.smith",
+        "rights": [
+          "CreateChild",
+          "DeleteChild",
+          "ExtendedRight",
+          "GenericAll",
+          "Self",
+          "WriteDacl",
+          "WriteOwner",
+          "WriteProperty"
+        ],
+        "activeDirectoryRights_raw": 983551,
+        "accessControlType_raw": 0,
+        "source_file": "domain_controllers_ou.json"
+      },
+      "impact": "Explicit powerful ACLs on Tier-0 containers can enable privilege escalation or domain takeover depending on the principal and target objects. See Microsoft's Privileged Access documentation: <a href=\"https://learn.microsoft.com/en-us/security/privileged-access-workstations/overview\" target=\"_blank\">https://learn.microsoft.com/en-us/security/privileged-access-workstations/</a>",
+      "remediation": [
+        "Remove unnecessary delegated rights (GenericAll/GenericWrite/WriteDACL/WriteOwner/Extended rights).",
+        "Restrict Tier-0 ACLs (Domain Controllers OU, privileged groups) to tightly controlled admin groups.",
+        "Re-run scan to confirm exposure is removed."
+      ]
+    },
+    {
+      "id": "AD-KERB-001",
+      "title": "Kerberoastable service account (SPN present)",
+      "severity": "HIGH",
+      "evidence": {
+        "user": "svc_file",
+        "spn_count": 2,
+        "pwd_last_set_utc": null,
+        "pwd_age_days": null
+      },
+      "impact": "Explicit powerful ACLs on Tier-0 containers can enable privilege escalation or domain takeover depending on the principal and target objects. See Microsoft\u2019s guidance to help mitigate Kerberoasting: <a href=\"https://www.microsoft.com/en-us/security/blog/2024/10/11/microsofts-guidance-to-help-mitigate-kerberoasting/\" target=\"_blank\">https://www.microsoft.com/en-us/security/blog/2024/10/11/microsofts-guidance-to-help-mitigate-kerberoasting/</a>",
+      "remediation": [
+        "Prefer gMSA for services where possible.",
+        "Rotate service account passwords regularly and enforce strong random values.",
+        "Remove unused SPNs from user accounts."
+      ]
+    },
+    {
+      "id": "AD-KERB-001",
+      "title": "Kerberoastable service account (SPN present)",
+      "severity": "HIGH",
+      "evidence": {
+        "user": "svc_app",
+        "spn_count": 2,
+        "pwd_last_set_utc": null,
+        "pwd_age_days": null
+      },
+      "impact": "Explicit powerful ACLs on Tier-0 containers can enable privilege escalation or domain takeover depending on the principal and target objects. See Microsoft\u2019s guidance to help mitigate Kerberoasting: <a href=\"https://www.microsoft.com/en-us/security/blog/2024/10/11/microsofts-guidance-to-help-mitigate-kerberoasting/\" target=\"_blank\">https://www.microsoft.com/en-us/security/blog/2024/10/11/microsofts-guidance-to-help-mitigate-kerberoasting/</a>",
+      "remediation": [
+        "Prefer gMSA for services where possible.",
+        "Rotate service account passwords regularly and enforce strong random values.",
+        "Remove unused SPNs from user accounts."
+      ]
+    },
+    {
+      "id": "AD-KERB-001",
+      "title": "Kerberoastable service account (SPN present)",
+      "severity": "HIGH",
+      "evidence": {
+        "user": "svc_backup",
+        "spn_count": 1,
+        "pwd_last_set_utc": null,
+        "pwd_age_days": null
+      },
+      "impact": "Explicit powerful ACLs on Tier-0 containers can enable privilege escalation or domain takeover depending on the principal and target objects. See Microsoft\u2019s guidance to help mitigate Kerberoasting: <a href=\"https://www.microsoft.com/en-us/security/blog/2024/10/11/microsofts-guidance-to-help-mitigate-kerberoasting/\" target=\"_blank\">https://www.microsoft.com/en-us/security/blog/2024/10/11/microsofts-guidance-to-help-mitigate-kerberoasting/</a>",
+      "remediation": [
+        "Prefer gMSA for services where possible.",
+        "Rotate service account passwords regularly and enforce strong random values.",
+        "Remove unused SPNs from user accounts."
+      ]
+    },
+    {
+      "id": "GPO-LDAP-001",
+      "title": "LDAP server signing/integrity not configured in any exported GPO",
+      "severity": "HIGH",
+      "evidence": {
+        "gpo_reports_scanned": 5,
+        "observed": []
+      },
+      "impact": "Without enforcing LDAP signing on Domain Controllers, LDAP traffic may be vulnerable depending on client behavior.See Microsoft\u2019s LDAP server signing requirements: <a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/domain-controller-ldap-server-signing-requirements\" target=\"_blank\">https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/domain-controller-ldap-server-signing-requirements</a>",
+      "remediation": [
+        "Configure LDAPServerIntegrity via GPO (prefer 2 = Require signing).",
+        "Pilot and monitor unsigned binds before enforcing broadly."
+      ]
+    },
+    {
+      "id": "GPO-SMB-001",
+      "title": "SMB signing requirement not configured in any exported GPO",
+      "severity": "HIGH",
+      "evidence": {
+        "gpo_reports_scanned": 5,
+        "observed": []
+      },
+      "impact": "If SMB signing is not required, some environments may be exposed to relay attacks depending on other controls.See Microsoft\u2019s Digitally sign communications: <a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/microsoft-network-server-digitally-sign-communications-always\"target=\"_blank\">https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/microsoft-network-server-digitally-sign-communications-always</a>",
+      "remediation": [
+        "Require SMB signing on servers/clients where feasible."
+      ]
+    },
+    {
+      "id": "AD-AUTH-002",
+      "title": "Account has 'Password never expires'",
+      "severity": "MEDIUM",
+      "evidence": {
+        "user": "Administrator"
+      },
+      "impact": "Long-lived credentials increase exposure to offline cracking and credential reuse attacks.See Microsoft\u2019s Password guidance: <a href=\"https://learn.microsoft.com/en-us/microsoft-365/admin/manage/set-password-expiration-policy?view=o365-worldwide\" target=\"_blank\">https://learn.microsoft.com/en-us/microsoft-365/admin/manage/set-password-expiration-policy</a>",
+      "remediation": [
+        "Disable 'Password never expires' for user/service accounts where possible.",
+        "Use gMSA for services to get automatic password rotation."
+      ]
+    },
+    {
+      "id": "AD-AUTH-002",
+      "title": "Account has 'Password never expires'",
+      "severity": "MEDIUM",
+      "evidence": {
+        "user": "Guest"
+      },
+      "impact": "Long-lived credentials increase exposure to offline cracking and credential reuse attacks.See Microsoft\u2019s Password guidance: <a href=\"https://learn.microsoft.com/en-us/microsoft-365/admin/manage/set-password-expiration-policy?view=o365-worldwide\" target=\"_blank\">https://learn.microsoft.com/en-us/microsoft-365/admin/manage/set-password-expiration-policy</a>",
+      "remediation": [
+        "Disable 'Password never expires' for user/service accounts where possible.",
+        "Use gMSA for services to get automatic password rotation."
+      ]
+    },
+    {
+      "id": "AD-AUTH-002",
+      "title": "Account has 'Password never expires'",
+      "severity": "MEDIUM",
+      "evidence": {
+        "user": "john.smith"
+      },
+      "impact": "Long-lived credentials increase exposure to offline cracking and credential reuse attacks.See Microsoft\u2019s Password guidance: <a href=\"https://learn.microsoft.com/en-us/microsoft-365/admin/manage/set-password-expiration-policy?view=o365-worldwide\" target=\"_blank\">https://learn.microsoft.com/en-us/microsoft-365/admin/manage/set-password-expiration-policy</a>",
+      "remediation": [
+        "Disable 'Password never expires' for user/service accounts where possible.",
+        "Use gMSA for services to get automatic password rotation."
+      ]
+    },
+    {
+      "id": "AD-POSTURE-003",
+      "title": "MachineAccountQuota is greater than 0",
+      "severity": "MEDIUM",
+      "evidence": {
+        "ms-DS-MachineAccountQuota": 10
+      },
+      "impact": "Allows authenticated users to join machines to the domain, which can enable certain abuse paths in misconfigured environments. See Microsoft\u2019s default workstation numbers join domain onsiderations: <a href=\"https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/default-workstation-numbers-join-domain\" target=\"_blank\">https://learn.microsoft.com/en-us/troubleshoot/windows-server/active-directory/default-workstation-numbers-join-domain</a>",
+      "remediation": [
+        "Set MachineAccountQuota to 0 unless you explicitly need self-service joins.",
+        "If self-service joins are needed, restrict who can join machines using delegated OU permissions."
+      ]
+    },
+    {
+      "id": "GPO-LDAP-003",
+      "title": "LDAP client signing/integrity not configured in any exported GPO",
+      "severity": "MEDIUM",
+      "evidence": {
+        "gpo_reports_scanned": 5,
+        "observed": []
+      },
+      "impact": "Clients may perform unsigned LDAP binds depending on defaults and application behavior.See Microsoft\u2019s LDAP client signing requirements: <a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/network-security-ldap-client-signing-requirements\" target=\"_blank\">https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/network-security-ldap-client-signing-requirements</a>",
+      "remediation": [
+        "Configure LDAPClientIntegrity via GPO where appropriate."
+      ]
+    },
+    {
+      "id": "GPO-LDAP-002",
+      "title": "LDAP channel binding not configured in any exported GPO",
+      "severity": "MEDIUM",
+      "evidence": {
+        "gpo_reports_scanned": 5,
+        "observed": []
+      },
+      "impact": "Channel binding can reduce certain relay-style risks but may affect legacy compatibility.See Microsoft\u2019s LDAP server channel binding token requirements: <a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/domain-controller-ldap-server-channel-binding-token-requirements\" target=\"_blank\">https://learn.microsoft.com/en-us/previous-versions/windows/security-policy-settings/domain-controller-ldap-server-channel-binding-token-requirements</a>",
+      "remediation": [
+        "Evaluate enforcing LdapEnforceChannelBinding via staged rollout."
+      ]
+    },
+    {
+      "id": "GPO-NTLM-001",
+      "title": "LM/NTLM compatibility level not configured in any exported GPO",
+      "severity": "MEDIUM",
+      "evidence": {
+        "gpo_reports_scanned": 5,
+        "observed": []
+      },
+      "impact": "Without setting LmCompatibilityLevel, systems may operate with weaker defaults depending on OS version/local policy.See Microsoft\u2019s LAN Manager authentication level: <a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/network-security-lan-manager-authentication-level\"target=\"_blank\">https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/network-security-lan-manager-authentication-level</a>",
+      "remediation": [
+        "Set LmCompatibilityLevel to a secure value (commonly 5 for NTLMv2-only) where compatible."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "Administrator",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134074988840018943
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "BRANCH$",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134075963179468764
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "svc_file",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134095046538988497
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "svc_app",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134095046540238944
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "svc_backup",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134095046541329596
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "john.smith",
+        "UserPrincipalName": "john@corp.local",
+        "pwdLastSet": 134106181504913999
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "sarah.lee",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134078507314513347
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "michael.adams",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134078507315933781
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "emma.brown",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134078507316879171
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "olivia.davis",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134078507318355736
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "liam.tech",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134078507319868553
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "isabella.martinez",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134078507323651041
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "james.wilson",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134078507324910268
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "noah.intern",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134078507326411279
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "ava.intern",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134078507327612294
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "T0_Admin1",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134095024608658005
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "T0_Admin2",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134095024609594245
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "T2_Admin1",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134095027349593391
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "T2_Admin2",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134095027350530856
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "T1_Admin1",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134095028419596155
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "T1_Admin2",
+        "UserPrincipalName": null,
+        "pwdLastSet": 134095028420690319
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-PASS-AGE-003",
+      "title": "User password older than 300 days",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "svc_ad_audit",
+        "UserPrincipalName": "svc_ad_audit@corp.local",
+        "pwdLastSet": 134106230538664566
+      },
+      "impact": "Passwords older than the defined rotation window may increase exposure if compromised.",
+      "remediation": [
+        "Review password rotation policy.",
+        "Ensure password age aligns with organizational standards."
+      ]
+    },
+    {
+      "id": "ARL-USER-001",
+      "title": "User account named jhon exists",
+      "severity": "LOW",
+      "evidence": {
+        "SamAccountName": "john.smith",
+        "UserPrincipalName": "john@corp.local",
+        "Enabled": true
+      },
+      "impact": "Unexpected or test user accounts may indicate poor identity hygiene or leftover accounts.",
+      "remediation": [
+        "Verify whether this account is legitimate.",
+        "Disable or remove unused or test accounts."
+      ]
+    }
+  ]
+}

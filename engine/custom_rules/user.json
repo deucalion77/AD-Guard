@@ -1,0 +1,21 @@
+{
+  "id": "ARL-USER-001",
+  "title": "User account named jhon exists",
+  "severity": "LOW",
+  "source": "users",
+  "when": {
+    "all_of": [
+      { "field": "SamAccountName", "contains": "john" }
+    ]
+  },
+  "evidence": [
+    "SamAccountName",
+    "UserPrincipalName",
+    "Enabled"
+  ],
+  "impact": "Unexpected or test user accounts may indicate poor identity hygiene or leftover accounts.",
+  "remediation": [
+    "Verify whether this account is legitimate.",
+    "Disable or remove unused or test accounts."
+  ]
+}
